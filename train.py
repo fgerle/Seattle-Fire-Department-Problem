@@ -183,10 +183,9 @@ if __name__ == "__main__":
                "WEEKLY_PCR_TESTS_POS": WEEKLY_PCR_TESTS_POS,
                "PANDEMIC": pandemic},]
 
-    print(details)
     calls_prediction = model.predict(pd.DataFrame(details))
 
-    print(f"For {date_str} a total of {calls_prediction} Emergency calls is predicted. The standard deviation of this estimator is less than 25 calls.")
+    print(f"For {date_str} a total of {calls_prediction[0]} Emergency calls is predicted. The standard deviation of this estimator is less than 25 calls.")
                
                
     
