@@ -71,6 +71,32 @@ The callDB module is used to read the data of 911 calls obtained from https://da
 
 - `count_between(start=None, end=None, start_ts=None, end_ts=None)`: Count the number of 911 calls between two timepoints. Times must be given either as a string of the form 'YYYY-MM-DD HH:MM:SS' or as a timestamp.
 
+## The populationPredictor module
+Simple predictor to predict the population of Seattle for a given year. Uses a linear regression on the yearly population growth to extrapolate future growth and consequently future population of Seattle.
+
+### Parameters
+None
+
+### Attributes
+- `population`: historical population data for Seattle. Source:  https://www.macrotrends.net/cities/23140/seattle/population (same as for callDB module).
+- `regr`: regression model
+
+### Methods
+- `predict(year)`: returns the predicted population for a given year. If the given year is in `population`, the actual population is returned.
+
 ## Jupyter notebook 911_calls.ipynb
 
 Provides a short analysis of the data and a comparison of different learning strategies. Via writefile the important parts are written to train.py which can be used to get predictions for user specified dates
+
+## Standalone script train.py
+The python script `train.py` is basically stand-alone. It depends however on the existence of a database. The database can be created by running the command
+`db = callDB(csvfile, weather_data="weather_data.csv", covid_data= "COVID.csv", rebuild=True, dmin="2010-01-01")`, where `csvfile` must be replaced by the filename of the .csv file you downloaded from https://data.seattle.gov/Public-Safety/Seattle-Real-Time-Fire-911-Calls/kzjm-xkqj.
+
+## make_test_csv.py
+This is a helper script to extract a test.csv from the .csv file containing all 911-calls for test purposes.
+
+## weather_data.csv
+Weather data can be obtained from the webpage of the National Oceanic and Atmospheric Administration (NOAA) at https://www.ncei.noaa.gov/cdo-web/. This file contains data from 2003-01-01 to 2024-01-11 23:59 of the weather station SEATTLE SAND POINT WEATHER FORECAST OFFICE, WA US (GHCND:USW00094290). The original download link is available under https://www.ncei.noaa.gov/cdo-web/orders?email=fabian.gerle@gmx.de&id=3572455 and valid until 2024-01-24.
+
+## COVID.csv
+Covid infection data obtained from https://kingcounty.gov/en/legacy/depts/health/covid-19/data/download
